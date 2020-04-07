@@ -70,15 +70,119 @@ def move_to_XYZ(x,y,z,Mx,My,Mz,chg_vel = None): #default Vmax = 2.25 in mm/s
         print('reached ',x,y,z)
     else:
         print("x,y,z,dx,dy,dz: ",x,y,z,dx,dy,dz)
+        
 def get_bregma(Mx,My,Mz): #In robo coords
     x = Mx.position
     y = My.position
     z = Mz.position
-    return x,y,z    
+    return x,y,z
+
 ###########################################
 
-def drill_carniotomy(BREGMArobo,Mx,My,Mz,roboXs,roboYs,roboZs,circle,depth, que ):
+def drill_carniotomy(BREGMArobo,Mx,My,Mz,cranio,depth, que ):
     #roboXs,roboYs,roboZs are the selected points for best fit plane
+    x0 = BREGMArobo[0]
+    y0 = BREGMArobo[1]
+    z0 = BREGMArobo[2]
+    print("CRANIOTOMY STARTED!  Drilling: ",cranio)
+    ROBO_FOUND = False
+    MOVING = None
+    ROBOT_OUT_OF_RANGE = False
+    PAUSE = False
+    STOP = False
+    chg_vel = None
+##    # BEST FIT CIRCLE
+##    circle = best_fit_plot(roboXs,roboYs,roboZs,5.5,BREGMArobo,0,-1.7)
+    points = []
+    z = 0
+    x = 0
+    y = 0
+    idx = 0
+    for h in cranio:
+        print("pt: ",h)
+        x = h[0] 
+        y = h[1]
+        z = h[2]+depth
+        # FOR xs greater than 4.5 mm from bregma, increase deptth to account for skull shape
+        if x >= 4.9: z = z + 0.95
+        elif x >4.5: z = z + 0.5
+        print("Depth increased to accomodate shape of skull:   x,y,z: ",x,y,z)
+        
+        # Check if out of range for robot
+        if x <0.0 or x >25.0:
+            print ("X out of range")
+            ROBO_OUT_OF_RANGE = True
+        if y <0.0 or y >25.0:
+            print ("Y out of range")
+            ROBO_OUT_OF_RANGE = True
+        if z <0.0 or z >25.0:
+            print ("Z out of range")
+            ROBO_OUT_OF_RANGE = True
+        if len(points) == 0:
+            points.append((x,y,z-5))
+        points.append((x,y,z)) # MOVE
+        idx +=1
+    #points.append((x,y,z-5)) # go above BREGMA by 5
+    #points.append((1,1,1)) # Go to almost HOME
+    #print("drill hole PATH: ",points)
+    if (ROBOT_OUT_OF_RANGE):
+        print("\n\n\n\ROBOT OUT OF RANGE. RESET BREGMA\n\n\n")
+        
+    try:
+        i = 0
+        while True:
+            # Check for Msages from MAIN program
+            if not que.empty():
+                msg = que.get()
+                if msg == 'vel_up':
+                    chg_vel = 'vel_up'
+                elif msg == 'vel_dn':
+                    chg_vel = 'vel_dn'
+                elif msg == 'PAUSE':
+                    if not STOP:
+                        i-=1
+                    PAUSE = True
+                elif msg == 'STOP':
+                    i-=1
+                    STOP = True
+                elif msg == 'RESUME':
+                    PAUSE = False
+                elif msg == 'GO':
+                    STOP = False
+            if MOVING is None or not MOVING.is_alive(): #is_alive is a Tread function
+                if i >= len(points):  # Finished one pass of cranio, Lift drill up
+                    MOVING = threading.Thread(target=move_to_XYZ, args = (points[i-1][0],
+                                                      points[i-1][1],
+                                                      points[i-1][2] - 5,
+                                                      Mx,My,Mz,chg_vel))   
+                    break # DONE WITH ONE PASS
+                
+                if PAUSE:
+                    MOVING = threading.Thread(target=move_to_XYZ, args = (points[i][0],
+                                                      points[i][1],
+                                                      points[i][2] - 5,
+                                                      Mx,My,Mz,chg_vel))
+                    MOVING.start()
+                elif STOP:
+                    pass
+                else:  # Drill to next point in craniotomy
+                    #print("Going to :", points[i][0],points[i][1],points[i][2])
+                    MOVING = threading.Thread(target=move_to_XYZ, args = (points[i][0],
+                                                                          points[i][1],
+                                                                          points[i][2],
+                                                                          Mx,My,Mz,chg_vel))
+                    MOVING.start()
+                    i+=1
+                #print('started thread ', i)
+
+        print("Finished at: ",points[i-1][0],points[i-1][1],points[i-1][2])
+    except:
+        print('movement error')
+###########################################
+#  OLD
+def drill_circ_carniotomy(BREGMArobo,Mx,My,Mz,roboXs,roboYs,roboZs,circle,depth, que ):
+    #roboXs,roboYs,roboZs are the selected points for best fit plane
+    print("DRILLING CIRCULAR CRANIOTOMY")
     x0 = BREGMArobo[0]
     y0 = BREGMArobo[1]
     z0 = BREGMArobo[2]
