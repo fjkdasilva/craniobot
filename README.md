@@ -54,3 +54,12 @@ All the commands you need to run the Caniobot are iconified on the screen.
 9.	SCREW HOLES: Next press Next Hole Button to create screw holes. When the drill stops, used the Z axis motion control 
     button to go deeper if necessary.  When drilled to the depth you desire, press the Next Hole button to go to the next 
     hole location
+    
+    Using the CraniotomyDesigner:
+The Craniotomy Designer is a separate, but fully integrated module that is used to design craniotomy paths for the Craniobot.    It can be run as a stand-alone software, or called from the CraniobotGUI application.  The GUI should be self explanatory.  Click on the button icons to load an existing craniotomy path, create simple circular craniotomies, created complex arbitrary craniotomies, add screw-hole locations, save or clear the screen.  As soon as the mouse is dragged over the window, the cursor location (in skull coordinates) appear next to it.  
+
+Making a circular craniotomy: When the circular craniotomy button is pressed, user input boxes appear on the left of the skull graphic.  Click on the box, its outline will turn red, then type the desired values for the radius, and the X and Y offsets from the Bregma.  As soon as the last value is entered, a path for the robot to follow will appear on the screen.   To add a point, simply select the create craniotomy button, then simply click anywhere on a blue line.  Another point will be added.  To delete a point, left click on any point and it will disappear.   To Move an existing point, hold down the shift key while left clicking on a point, then move it to anywhere on the screen.  
+Making a craniotomy with an arbitrary path:  To create an arbitrary path, simply click on the Create Craniotomy Button.  Using the left mouse button, place points (in red) on the skull graphic.  Multiple points will constitute a path along the X and Y axes for the robot to follow.  When the path is complete, the resulting closed path will turn blue.  Move points by simultaneously holding down the SHIFT key and left clicking on a point.  Add points by clicking anywhere on an existing line. 
+Adding Screw Holes:  Simply click on the Add Screw Holes button, then left click the mouse on any point on the skull.  The robot will go to that point and drill along the Z-axis.   
+FINISHING IT UP:  When happy with your design, simply press the Save button.  All craniotomy patterns are stored in the CRANIOTOMY DESIGNS folder.  Now simply run the craniotomy robot, and load your desired path.
+
