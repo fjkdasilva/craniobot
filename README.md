@@ -56,6 +56,7 @@ All the commands you need to run the Caniobot are iconified on the screen.
     hole location
     
 Using the CraniotomyDesigner:
+
 The Craniotomy Designer is a separate, but fully integrated module that is used to design craniotomy paths for the Craniobot.    It can be run as a stand-alone software, or called from the CraniobotGUI application.  The GUI should be self explanatory.  Click on the button icons to load an existing craniotomy path, create simple circular craniotomies, created complex arbitrary craniotomies, add screw-hole locations, save or clear the screen.  As soon as the mouse is dragged over the window, the cursor location (in skull coordinates) appear next to it.  Please see the included video for a quick tour:  CraniotomyDesigner 1.4 by Flavio...
 
 Making a circular craniotomy: 
