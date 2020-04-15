@@ -8,7 +8,9 @@ GUI interface
 Control of the robot is done using CraniobotGUI2.5.py. Drill_holes2.py and drill_craniotomy2.py are called by the GUI. Some ThorLabs control functions are included in the throlabs_apt_master folder. The RESOURCES folder contains GUI elements, logos, and graphics. After the skull is surgically exposed, The robot is pushed against the stereotaxic equipment to align the XY plane of the robot with the XY plane of the sterotaxic equipment. Then use the XYZ motion control buttons to move the drill to the rodent (0,0,0) point (the Bregma location) to establish a point of correspondence between the robot and rodent coordinates.
 
 #*RUNNING THE CRANIOBOT*
-![GUI](https://github.com/fjkdasilva/craniobot/edit/master/GUI.png)
+![][GUI]
+
+[GUI]: https://github.com/fjkdasilva/craniobot/edit/master/GUI.png "GUI"
 
 All necessary Craniobot software is on this GITHUB. To start run CaniobotGUI2.5.py All the commands you need to run the Caniobot are iconified on the screen.
 1.	Using the trident stereotaxic leveling tool, be sure the rodent skull is level.
@@ -31,7 +33,9 @@ Repeat until through skull (approximately 10 passes). NOTE: The craniobot assume
 9.	SCREW HOLES: Next press Next Hole Button to create screw holes. When the drill stops, used the Z axis motion control button to go deeper if necessary. When drilled to the depth you desire, press the Next Hole button to go to the next hole location
 
 #*USING THE CRANIOTOMY DESIGNER*
-![DESIGNER](https://github.com/fjkdasilva/craniobot/edit/master/Designer.png)
+![][DESIGNER]
+
+[DESIGNER]: https://github.com/fjkdasilva/craniobot/edit/master/Designer.png "DESIGNER"
 The Craniotomy Designer is a separate, but fully integrated module that is used to design craniotomy paths for the Craniobot. It can be run as a stand-alone software, or called from the CraniobotGUI application. The GUI should be self explanatory. Click on the button icons to load an existing craniotomy path, create simple circular craniotomies, created complex arbitrary craniotomies, add screw-hole locations, save or clear the screen. As soon as the mouse is dragged over the window, the cursor location (in skull coordinates) appear next to it. Please see the included video for a quick tour: CraniotomyDesigner 1.4 by Flavio...
 Making a circular craniotomy: When the circular craniotomy button is pressed, user input boxes appear on the left of the skull graphic. Click on the box, its
 outline will turn red, then type the desired values for the radius, and the X and Y offsets from the Bregma. As soon as the last value is entered, a path for the robot to follow will appear on the screen.
