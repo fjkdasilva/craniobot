@@ -42,6 +42,8 @@ Making a craniotomy with an arbitrary path:
 To create an arbitrary path, simply click on the Create Craniotomy Button. Using the left mouse button, place points (in red) on the skull graphic. Multiple points will constitute a path along the X and Y axes for the robot to follow. When the path is complete, the resulting closed path will turn blue. Move points by simultaneously holding down the SHIFT key and left clicking on a point. Add points by clicking anywhere on an existing line.
 Adding Screw Holes: Simply click on the Add Screw Holes button, then left click the mouse on any point on the skull. The robot will go to that point and drill along the Z-axis.
 FINISHING IT UP: When happy with your design, simply press the Save button. All craniotomy patterns are stored in the CRANIOTOMY DESIGNS folder. Now simply run the craniotomy robot, and load your desired path.
+
+
 SOFTWARE INTALLATION GUIDE
 1.	Install Python 3.7 or higher. I prefer to install it as stand alone. a. During installation, choose Custom installation. Them place your Python in new folder. I created one called
 c:\python3.8.
